@@ -1,0 +1,44 @@
+{
+	"name": "observability",
+
+	"image": "mcr.microsoft.com/devcontainers/dotnet:6.0-jammy",
+
+	"customizations": {
+		"vscode": {
+			"settings": {
+			},
+
+			"extensions": [
+                "ms-dotnettools.csharp",
+				"ms-vscode.azure-account",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode"
+			]
+		}
+	},
+
+	// Use 'portsAttributes' to make a list of ports inside the container available locally.
+	// TODO: uncomment once we set up webapi, functions and React application
+	//"portsAttributes": {"80": {"label": "Web application", "onAutoForward": "openBrowser", "protocol": "http", "requireLocalPort": false} },
+
+	//"postCreateCommand": "bash -i .devcontainer/post-create-command.sh",
+
+	"remoteUser": "vscode",
+	
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {
+            "version": "latest"
+        },
+		"ghcr.io/devcontainers/features/azure-cli": {
+            "version": "latest"
+        },
+		"ghcr.io/devcontainers/features/node": {
+			"version":	"18",
+			"nodeGypDependencies": false
+		}
+	},
+    "mounts": [
+        "source=${localEnv:HOME}${env:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+    ]
+}
